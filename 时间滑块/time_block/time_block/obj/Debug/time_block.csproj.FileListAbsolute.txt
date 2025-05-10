@@ -1,0 +1,7 @@
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.csprojAssemblyReference.cache
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.Properties.Resources.resources
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.csproj.GenerateResource.cache
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.csproj.CoreCompileInputs.cache
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.Form1.resources
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\time_block.frmTime.resources
+D:\homework\GISkaifa\小组作业\time\时间滑块\time_block\time_block\obj\Debug\MakeACustomTimeControl2008.TimeSliderDialog.resources
