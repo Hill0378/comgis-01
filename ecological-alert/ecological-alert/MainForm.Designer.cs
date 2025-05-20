@@ -40,7 +40,7 @@
             this.按掩膜提取ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.赋权重ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.镶嵌ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重分类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.交集取反ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.赋颜色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
@@ -79,19 +79,19 @@
             // slope计算ToolStripMenuItem
             // 
             this.slope计算ToolStripMenuItem.Name = "slope计算ToolStripMenuItem";
-            this.slope计算ToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
+            this.slope计算ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.slope计算ToolStripMenuItem.Text = "slope计算";
             // 
             // 年间差异ToolStripMenuItem
             // 
             this.年间差异ToolStripMenuItem.Name = "年间差异ToolStripMenuItem";
-            this.年间差异ToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
+            this.年间差异ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.年间差异ToolStripMenuItem.Text = "年间差异";
             // 
             // 动画ToolStripMenuItem
             // 
             this.动画ToolStripMenuItem.Name = "动画ToolStripMenuItem";
-            this.动画ToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
+            this.动画ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.动画ToolStripMenuItem.Text = "动画";
             // 
             // 预警ToolStripMenuItem
@@ -102,7 +102,7 @@
             this.按掩膜提取ToolStripMenuItem1,
             this.赋权重ToolStripMenuItem,
             this.镶嵌ToolStripMenuItem,
-            this.重分类ToolStripMenuItem,
+            this.交集取反ToolStripMenuItem,
             this.赋颜色ToolStripMenuItem});
             this.预警ToolStripMenuItem.Name = "预警ToolStripMenuItem";
             this.预警ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
@@ -111,45 +111,46 @@
             // 缓冲区分析ToolStripMenuItem
             // 
             this.缓冲区分析ToolStripMenuItem.Name = "缓冲区分析ToolStripMenuItem";
-            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.缓冲区分析ToolStripMenuItem.Text = "缓冲区分析";
             // 
             // 按掩膜提取ToolStripMenuItem
             // 
             this.按掩膜提取ToolStripMenuItem.Name = "按掩膜提取ToolStripMenuItem";
-            this.按掩膜提取ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.按掩膜提取ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.按掩膜提取ToolStripMenuItem.Text = "均值求差";
             // 
             // 按掩膜提取ToolStripMenuItem1
             // 
             this.按掩膜提取ToolStripMenuItem1.Name = "按掩膜提取ToolStripMenuItem1";
-            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(159, 26);
+            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
             this.按掩膜提取ToolStripMenuItem1.Text = "按掩膜提取";
             this.按掩膜提取ToolStripMenuItem1.Click += new System.EventHandler(this.按掩膜提取ToolStripMenuItem1_Click);
             // 
             // 赋权重ToolStripMenuItem
             // 
             this.赋权重ToolStripMenuItem.Name = "赋权重ToolStripMenuItem";
-            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.赋权重ToolStripMenuItem.Text = "赋权重";
             // 
             // 镶嵌ToolStripMenuItem
             // 
             this.镶嵌ToolStripMenuItem.Name = "镶嵌ToolStripMenuItem";
-            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.镶嵌ToolStripMenuItem.Text = "镶嵌";
             this.镶嵌ToolStripMenuItem.Click += new System.EventHandler(this.镶嵌ToolStripMenuItem_Click);
             // 
-            // 重分类ToolStripMenuItem
+            // 交集取反ToolStripMenuItem
             // 
-            this.重分类ToolStripMenuItem.Name = "重分类ToolStripMenuItem";
-            this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
-            this.重分类ToolStripMenuItem.Text = "重分类";
+            this.交集取反ToolStripMenuItem.Name = "交集取反ToolStripMenuItem";
+            this.交集取反ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.交集取反ToolStripMenuItem.Text = "交集取反";
+            this.交集取反ToolStripMenuItem.Click += new System.EventHandler(this.交集取反ToolStripMenuItem_Click);
             // 
             // 赋颜色ToolStripMenuItem
             // 
             this.赋颜色ToolStripMenuItem.Name = "赋颜色ToolStripMenuItem";
-            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.赋颜色ToolStripMenuItem.Text = "赋颜色";
             // 
             // axToolbarControl1
@@ -232,7 +233,7 @@
         private System.Windows.Forms.ToolStripMenuItem 按掩膜提取ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 赋权重ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 镶嵌ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重分类ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 交集取反ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 赋颜色ToolStripMenuItem;
     }
 }
