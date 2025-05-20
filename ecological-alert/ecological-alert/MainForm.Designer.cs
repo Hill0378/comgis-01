@@ -111,44 +111,45 @@
             // 缓冲区分析ToolStripMenuItem
             // 
             this.缓冲区分析ToolStripMenuItem.Name = "缓冲区分析ToolStripMenuItem";
-            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.缓冲区分析ToolStripMenuItem.Text = "缓冲区分析";
             // 
             // 按掩膜提取ToolStripMenuItem
             // 
             this.按掩膜提取ToolStripMenuItem.Name = "按掩膜提取ToolStripMenuItem";
-            this.按掩膜提取ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.按掩膜提取ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.按掩膜提取ToolStripMenuItem.Text = "均值求差";
             // 
             // 按掩膜提取ToolStripMenuItem1
             // 
             this.按掩膜提取ToolStripMenuItem1.Name = "按掩膜提取ToolStripMenuItem1";
-            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
+            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(159, 26);
             this.按掩膜提取ToolStripMenuItem1.Text = "按掩膜提取";
             this.按掩膜提取ToolStripMenuItem1.Click += new System.EventHandler(this.按掩膜提取ToolStripMenuItem1_Click);
             // 
             // 赋权重ToolStripMenuItem
             // 
             this.赋权重ToolStripMenuItem.Name = "赋权重ToolStripMenuItem";
-            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.赋权重ToolStripMenuItem.Text = "赋权重";
             // 
             // 镶嵌ToolStripMenuItem
             // 
             this.镶嵌ToolStripMenuItem.Name = "镶嵌ToolStripMenuItem";
-            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.镶嵌ToolStripMenuItem.Text = "镶嵌";
+            this.镶嵌ToolStripMenuItem.Click += new System.EventHandler(this.镶嵌ToolStripMenuItem_Click);
             // 
             // 重分类ToolStripMenuItem
             // 
             this.重分类ToolStripMenuItem.Name = "重分类ToolStripMenuItem";
-            this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.重分类ToolStripMenuItem.Text = "重分类";
             // 
             // 赋颜色ToolStripMenuItem
             // 
             this.赋颜色ToolStripMenuItem.Name = "赋颜色ToolStripMenuItem";
-            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.赋颜色ToolStripMenuItem.Text = "赋颜色";
             // 
             // axToolbarControl1
