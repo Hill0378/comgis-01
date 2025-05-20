@@ -51,6 +51,7 @@
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.栅格动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
@@ -98,7 +99,8 @@
             this.动画ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.judge,
             this.openshp,
-            this.create_view});
+            this.create_view,
+            this.栅格动画ToolStripMenuItem});
             this.动画ToolStripMenuItem.Name = "动画ToolStripMenuItem";
             this.动画ToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.动画ToolStripMenuItem.Text = "动画";
@@ -222,6 +224,13 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // 栅格动画ToolStripMenuItem
+            // 
+            this.栅格动画ToolStripMenuItem.Name = "栅格动画ToolStripMenuItem";
+            this.栅格动画ToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.栅格动画ToolStripMenuItem.Text = "栅格动画";
+            this.栅格动画ToolStripMenuItem.Click += new System.EventHandler(this.栅格动画ToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -269,6 +278,7 @@
         private System.Windows.Forms.ToolStripMenuItem openshp;
         private System.Windows.Forms.ToolStripMenuItem create_view;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem 栅格动画ToolStripMenuItem;
     }
 }
 

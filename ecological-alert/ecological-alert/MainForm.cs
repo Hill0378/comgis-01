@@ -138,5 +138,13 @@ namespace ecological_alert
                 judge.Enabled = true;
             }
         }
+
+        private void 栅格动画ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ndviFolderPath = @"D:\homework\GISkaifa\data";
+            CustomTimeSliderButton timeSlider = new CustomTimeSliderButton();
+            // 传递null作为图层参数，提供文件夹路径
+            timeSlider.Time(null, axMapControl1, ndviFolderPath);
+        }
     }
 }
