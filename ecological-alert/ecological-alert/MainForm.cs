@@ -53,13 +53,13 @@ namespace ecological_alert
             form.ShowDialog();
         }
 
-            private void 镶嵌ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 镶嵌ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             MosaicDialog form = new MosaicDialog(axMapControl1);
-            
-                form.ShowDialog();
-            
+
+            form.ShowDialog();
+
         }
 
     }
