@@ -37,6 +37,7 @@
             this.btnOutputLayer = new System.Windows.Forms.Button();
             this.btnBuffer = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -119,11 +120,21 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(299, 118);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 18);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "米";
+            // 
             // BufferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(546, 388);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnBuffer);
             this.Controls.Add(this.btnOutputLayer);
@@ -152,5 +163,6 @@
         private System.Windows.Forms.Button btnOutputLayer;
         private System.Windows.Forms.Button btnBuffer;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label4;
     }
 }
