@@ -132,6 +132,7 @@
             this.赋权重ToolStripMenuItem.Name = "赋权重ToolStripMenuItem";
             this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.赋权重ToolStripMenuItem.Text = "赋权重";
+            this.赋权重ToolStripMenuItem.Click += new System.EventHandler(this.赋权重ToolStripMenuItem_Click);
             // 
             // 镶嵌ToolStripMenuItem
             // 
