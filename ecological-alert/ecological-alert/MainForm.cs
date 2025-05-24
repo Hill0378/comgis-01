@@ -172,5 +172,7 @@ namespace ecological_alert
             AssignColorForm form = new AssignColorForm(axMapControl1); // 传入地图控件
             form.ShowDialog();
         }
+
+       
     }
 }

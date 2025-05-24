@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -166,7 +166,6 @@
     <Compile Include="SlopeForm.Designer.cs">
       <DependentUpon>SlopeForm.cs</DependentUpon>
     </Compile>
-    
     <!-- 时间动画新功能文件 -->
     <Compile Include="CustomTimeSliderButton.cs" />
     <Compile Include="frmTime.cs">
@@ -184,7 +183,6 @@
     <Compile Include="TimeSliderDialog.designer.cs">
       <DependentUpon>TimeSliderDialog.cs</DependentUpon>
     </Compile>
-
     <!-- 资源文件 -->
     <EmbeddedResource Include="BufferForm.resx">
       <DependentUpon>BufferForm.cs</DependentUpon>
@@ -245,15 +243,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="esriCarto">
-      <Guid>{45AC68FF-DEFF-4884-B3A9-7D882EDCAEF1}</Guid>
-      <VersionMajor>10</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="esriDataSourcesFile">
       <Guid>{1CE6AC65-43F5-4529-8FC0-D7ED298E4F1A}</Guid>
       <VersionMajor>10</VersionMajor>
@@ -299,15 +288,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="esriGeoDatabase">
-      <Guid>{0475BDB1-E5B2-4CA2-9127-B4B1683E70C2}</Guid>
-      <VersionMajor>10</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="esriGeoDatabaseDistributed">
       <Guid>{A7C74158-1062-4664-B404-8694D490FCD1}</Guid>
       <VersionMajor>10</VersionMajor>
@@ -319,15 +299,6 @@
     </COMReference>
     <COMReference Include="esriGeoDatabaseExtensions">
       <Guid>{7BA654FE-F55E-4EE5-8CF2-FAEFFBC04A61}</Guid>
-      <VersionMajor>10</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="esriGeometry">
-      <Guid>{C4B094C2-FF32-4FA1-ABCB-7820F8D6FB68}</Guid>
       <VersionMajor>10</VersionMajor>
       <VersionMinor>8</VersionMinor>
       <Lcid>0</Lcid>

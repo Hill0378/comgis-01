@@ -197,7 +197,7 @@ namespace ecological_alert
                 };
 
                 // 设置颜色渐变
-                IAlgorithmicColorRamp colorRamp = new AlgorithmicColorRampClass
+                IAlgorithmicColorRamp colorRamp = new AlgorithmicColorRamp
                 {
                     FromColor = CreateColor(0, 0, 0),     // 黑色
                     ToColor = CreateColor(255, 255, 255), // 白色
@@ -219,7 +219,7 @@ namespace ecological_alert
 
         private IRgbColor CreateColor(byte red, byte green, byte blue)
         {
-            return new RgbColorClass { Red = red, Green = green, Blue = blue };
+            return new RgbColor { Red = red, Green = green, Blue = blue };
         }
 
         private void CleanUp()

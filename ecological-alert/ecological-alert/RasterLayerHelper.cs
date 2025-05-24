@@ -13,7 +13,7 @@ namespace ecological_alert
             try
             {
                 // 打开栅格数据集
-                RasterWorkspaceFactory workspaceFactory = new RasterWorkspaceFactoryClass();
+                RasterWorkspaceFactory workspaceFactory = new RasterWorkspaceFactory();
                 string directory = System.IO.Path.GetDirectoryName(filePath);
                 string fileName = System.IO.Path.GetFileName(filePath);
 
