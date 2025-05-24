@@ -36,26 +36,19 @@
     <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-
     <Reference Include="ESRI.ArcGIS.AnalysisTools, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
-
     <Reference Include="ESRI.ArcGIS.ArcMapUI, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-
     <Reference Include="ESRI.ArcGIS.AxControls, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
     <Reference Include="ESRI.ArcGIS.Carto, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Controls, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.DataManagementTools, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
     <Reference Include="ESRI.ArcGIS.DataSourcesFile, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="ESRI.ArcGIS.DataSourcesRaster, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.DataSourcesRaster, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -67,12 +60,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.Geoprocessing, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Geoprocessor, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
@@ -82,20 +72,12 @@
     <Reference Include="ESRI.ArcGIS.Output, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-
-    <Reference Include="ESRI.ArcGIS.SpatialAnalyst, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-
     <Reference Include="ESRI.ArcGIS.SpatialAnalystTools, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
     <Reference Include="ESRI.ArcGIS.SpatialAnalystUI, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.System, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
-
       <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="ESRI.ArcGIS.SpatialAnalystTools, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
-    <Reference Include="ESRI.ArcGIS.System, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -122,7 +104,13 @@
     </Compile>
     <Compile Include="BufferForm.Designer.cs">
       <DependentUpon>BufferForm.cs</DependentUpon>
-
+    </Compile>
+    <Compile Include="WeightForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WeightForm.Designer.cs">
+      <DependentUpon>WeightForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssignColorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,7 +122,6 @@
     </Compile>
     <Compile Include="Form_MeanDifference.Designer.cs">
       <DependentUpon>Form_MeanDifference.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Mainform.cs">
       <SubType>Form</SubType>
@@ -144,16 +131,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-
-    <Compile Include="WeightForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WeightForm.Designer.cs">
-      <DependentUpon>WeightForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="BufferForm.resx">
-      <DependentUpon>BufferForm.cs</DependentUpon>
-
     <Compile Include="RasterSubtractForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,12 +144,17 @@
     <Compile Include="SlopeForm.Designer.cs">
       <DependentUpon>SlopeForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BufferForm.resx">
+      <DependentUpon>BufferForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeightForm.resx">
+      <DependentUpon>WeightForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AssignColorForm.resx">
       <DependentUpon>AssignColorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_MeanDifference.resx">
       <DependentUpon>Form_MeanDifference.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
@@ -186,16 +168,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-
-    <EmbeddedResource Include="WeightForm.resx">
-      <DependentUpon>WeightForm.cs</DependentUpon>
-
     <EmbeddedResource Include="RasterSubtractForm.resx">
       <DependentUpon>RasterSubtractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SlopeForm.resx">
       <DependentUpon>SlopeForm.cs</DependentUpon>
-
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -138,7 +138,7 @@ namespace ecological_alert
                 IFeatureClass featureClass = featureWorkspace.OpenFeatureClass(fileName);
 
                 // 创建要素图层
-                IFeatureLayer featureLayer = new FeatureLayerClass();
+                IFeatureLayer featureLayer = new FeatureLayer();
                 featureLayer.FeatureClass = featureClass;
                 featureLayer.Name = fileName + "_缓冲区";
 
