@@ -113,12 +113,12 @@ namespace ecological_alert
                 string fileName = Path.GetFileName(rasterPath);
 
                 // 创建工作空间并打开栅格数据集
-                IWorkspaceFactory workspaceFactory = new RasterWorkspaceFactoryClass();
+                IWorkspaceFactory workspaceFactory = new RasterWorkspaceFactory();
                 IRasterWorkspace rasterWorkspace = workspaceFactory.OpenFromFile(directory, 0) as IRasterWorkspace;
                 IRasterDataset rasterDataset = rasterWorkspace.OpenRasterDataset(fileName);
 
                 // 创建栅格图层
-                IRasterLayer rasterLayer = new RasterLayerClass();
+                IRasterLayer rasterLayer = new RasterLayer();
                 rasterLayer.CreateFromDataset(rasterDataset);
                 rasterLayer.Name = $"加权结果_{Path.GetFileNameWithoutExtension(fileName)}";
 
