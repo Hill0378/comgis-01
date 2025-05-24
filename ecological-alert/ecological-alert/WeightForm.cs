@@ -3,26 +3,33 @@ using System.Windows.Forms;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.DataSourcesRaster;
 using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.esriSystem;
+using ESRI.ArcGIS.Geoprocessor;
+using ESRI.ArcGIS.SpatialAnalystTools;
 using System.IO;
 
 namespace ecological_alert
 {
     public partial class WeightForm : Form
     {
-        public WeightForm()
-        {
-            InitializeComponent();
-        }
-
-        public IRasterDataset RasterDataset { get; set; }
+        private ESRI.ArcGIS.Controls.AxMapControl axMapControl1;
         public double Weight { get; set; }
         public string OutputPath { get; set; }
-        public ESRI.ArcGIS.Controls.AxMapControl axMapControl1;
+
+        public WeightForm(ESRI.ArcGIS.Controls.AxMapControl mapControl)
+        {
+            InitializeComponent();
+            this.axMapControl1 = mapControl;
+            this.Load += WeightForm_Load;
+        }
 
         private void WeightForm_Load(object sender, EventArgs e)
         {
-            // 获取地图中的所有栅格图层
+            if (axMapControl1 == null || axMapControl1.LayerCount == 0)
+            {
+                MessageBox.Show("地图控件未初始化或没有可用图层!", "错误");
+                return;
+            }
+
             for (int i = 0; i < axMapControl1.LayerCount; i++)
             {
                 ILayer layer = axMapControl1.get_Layer(i);
@@ -40,47 +47,54 @@ namespace ecological_alert
 
         private void btnWeight_Click(object sender, EventArgs e)
         {
+            if (!double.TryParse(txtWeight.Text, out double weight))
+            {
+                MessageBox.Show("请输入有效的权重值!", "错误");
+                return;
+            }
+            Weight = weight;
+
+            if (comboBoxRaster.SelectedItem == null)
+            {
+                MessageBox.Show("请选择栅格数据!", "错误");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtOutputPath.Text))
+            {
+                MessageBox.Show("请选择输出路径!", "错误");
+                return;
+            }
+
             try
             {
-                // 验证并获取权重值
-                if (!double.TryParse(txtWeight.Text, out double weight))
-                {
-                    MessageBox.Show("请输入有效的权重值!", "错误");
-                    txtWeight.Focus();
-                    return;
-                }
-                Weight = weight;
-
-                // 获取选择的栅格数据
-                if (comboBoxRaster.SelectedItem == null)
-                {
-                    MessageBox.Show("请选择栅格数据!", "错误");
-                    return;
-                }
-
-                // 从地图中获取选中的栅格图层
-                IRasterLayer rasterLayer = GetRasterLayerByName(comboBoxRaster.SelectedItem.ToString());
+                // 获取选中的栅格图层
+                IRasterLayer rasterLayer = axMapControl1.get_Layer(comboBoxRaster.SelectedIndex) as IRasterLayer;
                 if (rasterLayer == null)
                 {
-                    MessageBox.Show("获取栅格数据失败!", "错误");
+                    MessageBox.Show("选中的图层不是有效的栅格图层!", "错误");
                     return;
                 }
 
-                // 正确获取栅格数据集的方法
-                RasterDataset = GetRasterDatasetFromLayer(rasterLayer);
-                if (RasterDataset == null)
+                // 执行加权计算
+                Geoprocessor gp = new Geoprocessor { OverwriteOutput = true };
+                Times timesTool = new Times
                 {
-                    MessageBox.Show("无法获取栅格数据集!", "错误");
-                    return;
-                }
+                    in_raster_or_constant1 = rasterLayer.Raster,
+                    in_raster_or_constant2 = Weight,
+                    out_raster = txtOutputPath.Text
+                };
 
-                // 验证输出路径
-                if (string.IsNullOrWhiteSpace(txtOutputPath.Text))
-                {
-                    MessageBox.Show("请选择输出路径!", "错误");
-                    return;
-                }
-                OutputPath = txtOutputPath.Text;
+                // 执行计算
+                gp.Execute(timesTool, null);
+
+                // 将结果添加到地图
+                AddResultToMap(txtOutputPath.Text);
+
+                MessageBox.Show($"赋权重操作完成!\n权重值: {Weight}\n输出路径: {txtOutputPath.Text}",
+                             "操作完成",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Information);
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -91,43 +105,38 @@ namespace ecological_alert
             }
         }
 
-        // 获取栅格数据集
-        private IRasterDataset GetRasterDatasetFromLayer(IRasterLayer rasterLayer)
+        private void AddResultToMap(string rasterPath)
         {
             try
             {
-                // 直接获取栅格数据集
-                IDataset dataset = (IDataset)rasterLayer;
-                if (dataset == null) return null;
+                string directory = Path.GetDirectoryName(rasterPath);
+                string fileName = Path.GetFileName(rasterPath);
 
-                // 获取工作空间和数据集名称
-                string workspacePath = dataset.Workspace.PathName;
-                string datasetName = dataset.Name;
-
-                // 通过工作空间打开数据集
+                // 创建工作空间并打开栅格数据集
                 IWorkspaceFactory workspaceFactory = new RasterWorkspaceFactoryClass();
-                IRasterWorkspace rasterWorkspace = (IRasterWorkspace)workspaceFactory.OpenFromFile(
-                    Path.GetDirectoryName(workspacePath), 0);
-                return rasterWorkspace.OpenRasterDataset(datasetName);
+                IRasterWorkspace rasterWorkspace = workspaceFactory.OpenFromFile(directory, 0) as IRasterWorkspace;
+                IRasterDataset rasterDataset = rasterWorkspace.OpenRasterDataset(fileName);
+
+                // 创建栅格图层
+                IRasterLayer rasterLayer = new RasterLayerClass();
+                rasterLayer.CreateFromDataset(rasterDataset);
+                rasterLayer.Name = $"加权结果_{Path.GetFileNameWithoutExtension(fileName)}";
+
+                // 添加到地图并刷新
+                axMapControl1.AddLayer(rasterLayer as ILayer);
+                axMapControl1.ActiveView.Refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"获取栅格数据集时出错: {ex.Message}");
-                return null;
+                MessageBox.Show($"添加结果到地图时出错: {ex.Message}", "警告");
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private void btnOutputPath_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Filter = "TIFF 文件 (*.tif)|*.tif|IMG 文件 (*.img)|*.img|所有文件 (*.*)|*.*",
+                Filter = "TIFF 文件 (*.tif)|*.tif|IMG 文件 (*.img)|*.img",
                 Title = "选择输出栅格位置",
                 FileName = "weighted_result.tif"
             };
@@ -138,18 +147,10 @@ namespace ecological_alert
             }
         }
 
-        // 根据名称获取栅格图层
-        private IRasterLayer GetRasterLayerByName(string layerName)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < axMapControl1.LayerCount; i++)
-            {
-                ILayer layer = axMapControl1.get_Layer(i);
-                if (layer.Name == layerName && layer is IRasterLayer)
-                {
-                    return (IRasterLayer)layer;
-                }
-            }
-            return null;
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

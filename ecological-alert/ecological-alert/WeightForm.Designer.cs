@@ -33,10 +33,10 @@
             this.btnWeight = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtWeight = new System.Windows.Forms.TextBox();
-            this.comboBoxRaster = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.btnOutputPath = new System.Windows.Forms.Button();
+            this.comboBoxRaster = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +51,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(60, 154);
+            this.label2.Location = new System.Drawing.Point(60, 151);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 18);
             this.label2.TabIndex = 1;
@@ -79,18 +79,10 @@
             // 
             // txtWeight
             // 
-            this.txtWeight.Location = new System.Drawing.Point(183, 144);
+            this.txtWeight.Location = new System.Drawing.Point(183, 141);
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(100, 28);
             this.txtWeight.TabIndex = 6;
-            // 
-            // comboBoxRaster
-            // 
-            this.comboBoxRaster.FormattingEnabled = true;
-            this.comboBoxRaster.Location = new System.Drawing.Point(183, 94);
-            this.comboBoxRaster.Name = "comboBoxRaster";
-            this.comboBoxRaster.Size = new System.Drawing.Size(265, 26);
-            this.comboBoxRaster.TabIndex = 7;
             // 
             // label3
             // 
@@ -118,15 +110,23 @@
             this.btnOutputPath.UseVisualStyleBackColor = true;
             this.btnOutputPath.Click += new System.EventHandler(this.btnOutputPath_Click);
             // 
+            // comboBoxRaster
+            // 
+            this.comboBoxRaster.FormattingEnabled = true;
+            this.comboBoxRaster.Location = new System.Drawing.Point(183, 93);
+            this.comboBoxRaster.Name = "comboBoxRaster";
+            this.comboBoxRaster.Size = new System.Drawing.Size(265, 26);
+            this.comboBoxRaster.TabIndex = 11;
+            // 
             // WeightForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 410);
+            this.Controls.Add(this.comboBoxRaster);
             this.Controls.Add(this.btnOutputPath);
             this.Controls.Add(this.txtOutputPath);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBoxRaster);
             this.Controls.Add(this.txtWeight);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnWeight);
@@ -147,9 +147,9 @@
         private System.Windows.Forms.Button btnWeight;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtWeight;
-        private System.Windows.Forms.ComboBox comboBoxRaster;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.Button btnOutputPath;
+        private System.Windows.Forms.ComboBox comboBoxRaster;
     }
 }
