@@ -33,8 +33,6 @@ namespace ecological_alert
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //axToolbarControl1.SetBuddyControl(axMapControl1);
-            //axTOCControl1.SetBuddyControl(axMapControl1);
         }
 
         private void InitializeMapControl()
@@ -62,12 +60,14 @@ namespace ecological_alert
 
         }
 
-        private void 交集取反ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 重分类ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             negation form = new negation(axMapControl1);
 
             form.ShowDialog();
         }
+
+        
     }
 }
 
