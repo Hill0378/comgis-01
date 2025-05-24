@@ -81,14 +81,16 @@
             this.slope计算ToolStripMenuItem.Name = "slope计算ToolStripMenuItem";
             this.slope计算ToolStripMenuItem.Size = new System.Drawing.Size(221, 38);
             this.slope计算ToolStripMenuItem.Text = "slope计算";
-           
+            this.slope计算ToolStripMenuItem.Click += new System.EventHandler(this.slope计算ToolStripMenuItem_Click);
+
             // 
             // 年间差异ToolStripMenuItem
             // 
             this.年间差异ToolStripMenuItem.Name = "年间差异ToolStripMenuItem";
             this.年间差异ToolStripMenuItem.Size = new System.Drawing.Size(221, 38);
             this.年间差异ToolStripMenuItem.Text = "年间差异";
-            
+            this.年间差异ToolStripMenuItem.Click += new System.EventHandler(this.年间差异ToolStripMenuItem_Click);
+
             // 
             // 动画ToolStripMenuItem
             // 
@@ -115,13 +117,15 @@
             this.缓冲区分析ToolStripMenuItem.Name = "缓冲区分析ToolStripMenuItem";
             this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.缓冲区分析ToolStripMenuItem.Text = "缓冲区分析";
+            this.缓冲区分析ToolStripMenuItem.Click += new System.EventHandler(this.缓冲区分析ToolStripMenuItem_Click);
             // 
             // 均值求差ToolStripMenuItem
             // 
             this.均值求差ToolStripMenuItem.Name = "均值求差ToolStripMenuItem";
             this.均值求差ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.均值求差ToolStripMenuItem.Text = "均值求差";
-            
+            this.均值求差ToolStripMenuItem.Click += new System.EventHandler(this.均值求差ToolStripMenuItem_Click);
+
             // 
             // 按掩膜提取ToolStripMenuItem1
             // 
@@ -135,6 +139,7 @@
             this.赋权重ToolStripMenuItem.Name = "赋权重ToolStripMenuItem";
             this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.赋权重ToolStripMenuItem.Text = "赋权重";
+            this.赋权重ToolStripMenuItem.Click += new System.EventHandler(this.赋权重ToolStripMenuItem_Click);
             // 
             // 镶嵌ToolStripMenuItem
             // 
@@ -155,6 +160,7 @@
             this.赋颜色ToolStripMenuItem.Name = "赋颜色ToolStripMenuItem";
             this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.赋颜色ToolStripMenuItem.Text = "赋颜色";
+            this.赋颜色ToolStripMenuItem.Click += new System.EventHandler(this.赋颜色ToolStripMenuItem_Click);
 
             // 
             // axToolbarControl1
