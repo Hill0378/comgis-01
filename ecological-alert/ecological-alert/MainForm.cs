@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.DataSourcesFile;
-using ESRI.ArcGIS.Carto;
-
+using ESRI.ArcGIS.Controls;
 
 namespace ecological_alert
 {
@@ -26,6 +16,19 @@ namespace ecological_alert
         {
             axToolbarControl1.SetBuddyControl(axMapControl1);
             axTOCControl1.SetBuddyControl(axMapControl1);
+        }
+
+
+        private void 缓冲区分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BufferForm form = new BufferForm(this.axMapControl1);
+            form.ShowDialog();
+        }
+
+        private void 赋权重ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WeightForm form = new WeightForm(this.axMapControl1);
+            form.ShowDialog();
         }
 
         private void 年间差异ToolStripMenuItem_Click(object sender, EventArgs e)
