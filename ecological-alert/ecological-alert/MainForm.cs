@@ -25,7 +25,7 @@ namespace ecological_alert
         public Mainform()
         {
             InitializeComponent();
-            this.Load += Form1_Load;
+            //this.Load += Form1_Load;
             //InitializeMapControl();
         }
      

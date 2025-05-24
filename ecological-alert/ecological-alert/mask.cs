@@ -81,7 +81,7 @@ namespace ecological_alert
         // 保存并显示结果栅格
         private void SaveAndDisplayResult(IGeoDataset geoDataset, string layerName)
         {
-            IRasterLayer rasterLayer = new RasterLayerClass();
+            IRasterLayer rasterLayer = new RasterLayer();
             rasterLayer.CreateFromRaster((IRaster)geoDataset);
             rasterLayer.Name = layerName;
 
@@ -131,7 +131,7 @@ namespace ecological_alert
                     IFeatureCursor cursor = null;
                     try
                     {
-                        cursor = vectorLayer.FeatureClass.Search(new QueryFilterClass(), true);
+                        cursor = vectorLayer.FeatureClass.Search(new QueryFilter(), true);
                         IFeature feature = cursor.NextFeature();
                         if (feature?.Shape is IPolygon polygon)
                         {

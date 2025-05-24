@@ -161,7 +161,7 @@ namespace ecological_alert
             }
 
             // 添加到地图
-            IFeatureLayer featureLayer = new FeatureLayerClass();
+            IFeatureLayer featureLayer = new FeatureLayer();
             featureLayer.FeatureClass = featureClass;
             featureLayer.Name = layerName;
             _mapControl.AddLayer(featureLayer, 0);
@@ -171,21 +171,21 @@ namespace ecological_alert
         // 创建输出要素类
         private IFeatureClass CreateOutputFeatureClass(string layerName)
         {
-            IWorkspaceFactory workspaceFactory = new ShapefileWorkspaceFactoryClass();
+            IWorkspaceFactory workspaceFactory = new ShapefileWorkspaceFactory();
             IWorkspace workspace = workspaceFactory.OpenFromFile(System.IO.Path.GetTempPath(), 0);
 
             // 定义字段
-            IFields fields = new FieldsClass();
+            IFields fields = new Fields();
             IFieldsEdit fieldsEdit = (IFieldsEdit)fields;
 
             // 添加几何字段
-            IField shapeField = new FieldClass();
+            IField shapeField = new Field();
             IFieldEdit shapeFieldEdit = (IFieldEdit)shapeField;
             shapeFieldEdit.Name_2 = "Shape";
             shapeFieldEdit.Type_2 = esriFieldType.esriFieldTypeGeometry;
 
             // 几何定义
-            IGeometryDef geometryDef = new GeometryDefClass();
+            IGeometryDef geometryDef = new GeometryDef();
             IGeometryDefEdit geometryDefEdit = (IGeometryDefEdit)geometryDef;
             geometryDefEdit.GeometryType_2 = esriGeometryType.esriGeometryPolygon;
             geometryDefEdit.SpatialReference_2 = _mapControl.SpatialReference;

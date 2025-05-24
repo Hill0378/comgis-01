@@ -96,7 +96,7 @@ namespace ecological_alert
             {
                 if (File.Exists(layerPath))
                 {
-                    IRasterLayer rasterLayer = new RasterLayerClass();
+                    IRasterLayer rasterLayer = new RasterLayer();
                     rasterLayer.CreateFromFilePath(layerPath);
                     _mapControl.AddLayer(rasterLayer);
                     _mapControl.Refresh();

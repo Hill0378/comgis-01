@@ -62,7 +62,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 46);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 43);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -73,7 +73,7 @@
             this.年间差异ToolStripMenuItem,
             this.动画ToolStripMenuItem});
             this.动态监测ToolStripMenuItem.Name = "动态监测ToolStripMenuItem";
-            this.动态监测ToolStripMenuItem.Size = new System.Drawing.Size(122, 38);
+            this.动态监测ToolStripMenuItem.Size = new System.Drawing.Size(122, 35);
             this.动态监测ToolStripMenuItem.Text = "动态监测";
             // 
             // slope计算ToolStripMenuItem
@@ -82,7 +82,6 @@
             this.slope计算ToolStripMenuItem.Size = new System.Drawing.Size(221, 38);
             this.slope计算ToolStripMenuItem.Text = "slope计算";
             this.slope计算ToolStripMenuItem.Click += new System.EventHandler(this.slope计算ToolStripMenuItem_Click);
-
             // 
             // 年间差异ToolStripMenuItem
             // 
@@ -90,7 +89,6 @@
             this.年间差异ToolStripMenuItem.Size = new System.Drawing.Size(221, 38);
             this.年间差异ToolStripMenuItem.Text = "年间差异";
             this.年间差异ToolStripMenuItem.Click += new System.EventHandler(this.年间差异ToolStripMenuItem_Click);
-
             // 
             // 动画ToolStripMenuItem
             // 
@@ -109,64 +107,62 @@
             this.重分类ToolStripMenuItem,
             this.赋颜色ToolStripMenuItem});
             this.预警ToolStripMenuItem.Name = "预警ToolStripMenuItem";
-            this.预警ToolStripMenuItem.Size = new System.Drawing.Size(74, 38);
+            this.预警ToolStripMenuItem.Size = new System.Drawing.Size(74, 35);
             this.预警ToolStripMenuItem.Text = "预警";
             // 
             // 缓冲区分析ToolStripMenuItem
             // 
             this.缓冲区分析ToolStripMenuItem.Name = "缓冲区分析ToolStripMenuItem";
-            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.缓冲区分析ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.缓冲区分析ToolStripMenuItem.Text = "缓冲区分析";
             this.缓冲区分析ToolStripMenuItem.Click += new System.EventHandler(this.缓冲区分析ToolStripMenuItem_Click);
             // 
             // 均值求差ToolStripMenuItem
             // 
             this.均值求差ToolStripMenuItem.Name = "均值求差ToolStripMenuItem";
-            this.均值求差ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.均值求差ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.均值求差ToolStripMenuItem.Text = "均值求差";
             this.均值求差ToolStripMenuItem.Click += new System.EventHandler(this.均值求差ToolStripMenuItem_Click);
-
             // 
             // 按掩膜提取ToolStripMenuItem1
             // 
             this.按掩膜提取ToolStripMenuItem1.Name = "按掩膜提取ToolStripMenuItem1";
-            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(324, 38);
+            this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(232, 38);
             this.按掩膜提取ToolStripMenuItem1.Text = "按掩膜提取";
             this.按掩膜提取ToolStripMenuItem1.Click += new System.EventHandler(this.按掩膜提取ToolStripMenuItem1_Click);
             // 
             // 赋权重ToolStripMenuItem
             // 
             this.赋权重ToolStripMenuItem.Name = "赋权重ToolStripMenuItem";
-            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.赋权重ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.赋权重ToolStripMenuItem.Text = "赋权重";
             this.赋权重ToolStripMenuItem.Click += new System.EventHandler(this.赋权重ToolStripMenuItem_Click);
             // 
             // 镶嵌ToolStripMenuItem
             // 
             this.镶嵌ToolStripMenuItem.Name = "镶嵌ToolStripMenuItem";
-            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.镶嵌ToolStripMenuItem.Text = "镶嵌";
             this.镶嵌ToolStripMenuItem.Click += new System.EventHandler(this.镶嵌ToolStripMenuItem_Click);
             // 
             // 重分类ToolStripMenuItem
             // 
             this.重分类ToolStripMenuItem.Name = "重分类ToolStripMenuItem";
-            this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.重分类ToolStripMenuItem.Text = "重分类";
             this.重分类ToolStripMenuItem.Click += new System.EventHandler(this.重分类ToolStripMenuItem_Click);
             // 
             // 赋颜色ToolStripMenuItem
             // 
             this.赋颜色ToolStripMenuItem.Name = "赋颜色ToolStripMenuItem";
-            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.赋颜色ToolStripMenuItem.Size = new System.Drawing.Size(232, 38);
             this.赋颜色ToolStripMenuItem.Text = "赋颜色";
             this.赋颜色ToolStripMenuItem.Click += new System.EventHandler(this.赋颜色ToolStripMenuItem_Click);
-
             // 
             // axToolbarControl1
             // 
             this.axToolbarControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.axToolbarControl1.Location = new System.Drawing.Point(0, 46);
+            this.axToolbarControl1.Location = new System.Drawing.Point(0, 43);
             this.axToolbarControl1.Margin = new System.Windows.Forms.Padding(6);
             this.axToolbarControl1.Name = "axToolbarControl1";
             this.axToolbarControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControl1.OcxState")));
@@ -175,20 +171,20 @@
             // 
             // axTOCControl1
             // 
-            this.axTOCControl1.Location = new System.Drawing.Point(0, 47);
+            this.axTOCControl1.Location = new System.Drawing.Point(0, 74);
             this.axTOCControl1.Margin = new System.Windows.Forms.Padding(6);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(204, 344);
+            this.axTOCControl1.Size = new System.Drawing.Size(326, 550);
             this.axTOCControl1.TabIndex = 2;
             // 
             // axMapControl1
             // 
-            this.axMapControl1.Location = new System.Drawing.Point(120, 47);
+            this.axMapControl1.Location = new System.Drawing.Point(234, 74);
             this.axMapControl1.Margin = new System.Windows.Forms.Padding(6);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(536, 344);
+            this.axMapControl1.Size = new System.Drawing.Size(858, 550);
             this.axMapControl1.TabIndex = 3;
             // 
             // axLicenseControl1
@@ -214,7 +210,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Mainform";
             this.Text = "ecological-alert";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).EndInit();
