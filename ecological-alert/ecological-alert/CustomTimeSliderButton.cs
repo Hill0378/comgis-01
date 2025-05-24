@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.esriSystem;
 using System.Windows.Forms;
 using ESRI.ArcGIS.Controls;
-using ESRI.ArcGIS.DataSourcesRaster;
-using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.esriSystem;
+using System.Linq;
 
 namespace MakeACustomTimeControl2008
 {
@@ -19,14 +15,19 @@ namespace MakeACustomTimeControl2008
         private ITimeDuration m_layerInterval = null;
         private TimeSliderDialog m_sliderDlg = null;
         private AxMapControl m_mapControl = null;
-        private bool m_isRasterSeries = false;
-        private List<IRasterLayer> m_rasterLayers = new List<IRasterLayer>();
-        private Dictionary<int, DateTime> m_yearToDate = new Dictionary<int, DateTime>();
-        private int m_currentRasterIndex = 0;
+        private int m_startYear = 2014;
+        private int m_endYear = 2024;
+        private int m_currentYear = 2014;
+        private IRasterLayer m_rasterLayer = null;
+        private Timer m_animationTimer = null;
+        private bool m_isPlaying = false;
+        private List<IRasterLayer> m_rasterLayers = new List<IRasterLayer>(); // 添加声明变量
 
-        public CustomTimeSliderButton() { }
+        public CustomTimeSliderButton()
+        { }
 
-        public void Time(ILayer layer, AxMapControl mapControl, string folderPath = null)
+        // 修改后的方法，接收MapControl参数
+        public void Time(ILayer layer, AxMapControl mapControl)
         {
             if (mapControl == null)
             {
@@ -36,96 +37,8 @@ namespace MakeACustomTimeControl2008
 
             m_mapControl = mapControl;
 
-            // 处理TIFF时间序列动画
-            if (!string.IsNullOrEmpty(folderPath))
-            {
-                InitializeNDVITimeSeries(folderPath);
-                return;
-            }
-
-            // 处理SHP时间动画
-            if (layer != null)
-            {
-                ProcessFeatureLayer(layer);
-            }
-        }
 
 
-
-        private void InitializeNDVITimeSeries(string folderPath)
-        {
-            m_isRasterSeries = true;
-
-            // 获取文件夹中所有NDVI_YYYY.tif文件
-            var ndviFiles = Directory.GetFiles(folderPath, "NDVI_*.tif")
-                                     .OrderBy(f => f)
-                                     .ToList();
-
-            if (ndviFiles.Count == 0)
-            {
-                MessageBox.Show("未找到NDVI_YYYY.tif文件！");
-                return;
-            }
-
-            // 创建每年的栅格图层并提取年份
-            foreach (string filePath in ndviFiles)
-            {
-                string fileName = Path.GetFileNameWithoutExtension(filePath);
-                if (fileName.StartsWith("NDVI_") && fileName.Length >= 9)
-                {
-                    string yearStr = fileName.Substring(5, 4);
-                    if (int.TryParse(yearStr, out int year))
-                    {
-                        try
-                        {
-                            IRasterLayer rasterLayer = new RasterLayer() as IRasterLayer;
-                            rasterLayer.CreateFromFilePath(filePath);
-                            m_rasterLayers.Add(rasterLayer);
-                            m_yearToDate[m_rasterLayers.Count - 1] = new DateTime(year, 1, 1);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"加载文件{filePath}失败: {ex.Message}");
-                        }
-                    }
-                }
-            }
-
-            if (m_rasterLayers.Count == 0)
-            {
-                MessageBox.Show("未找到有效的NDVI年度数据文件！");
-                return;
-            }
-
-            // 创建时间范围（从第一年到最后一年）
-            ITime startTime = new Time() as ITime;
-            startTime.SetFromDateTime(m_yearToDate[0]);
-
-            ITime endTime = new Time() as ITime;
-            endTime.SetFromDateTime(m_yearToDate[m_rasterLayers.Count - 1].AddYears(1));
-
-            m_myLayerTimeExtent = new TimeExtent() as ITimeExtent;
-            m_myLayerTimeExtent.SetExtent(startTime, endTime);
-
-            // 设置时间间隔（1年）
-            ITimeExtent yearExtent = new TimeExtent() as ITimeExtent;
-            ITime yearStart = new Time() as ITime;
-            yearStart.SetFromDateTime(new DateTime(2000, 1, 1));
-            ITime yearEnd = new Time() as ITime;
-            yearEnd.SetFromDateTime(new DateTime(2001, 1, 1));
-            yearExtent.SetExtent(yearStart, yearEnd);
-            m_layerInterval = yearExtent.QueryTimeDuration();
-
-            // 默认显示第一年
-            m_mapControl.Map.AddLayer(m_rasterLayers[0]);
-            m_mapControl.ActiveView.Refresh();
-
-            m_sliderDlg = new TimeSliderDialog(this);
-            m_sliderDlg.Show();
-        }
-
-        private void ProcessFeatureLayer(ILayer layer)
-        {
             IFeatureLayer pFLyr = layer as IFeatureLayer;
             if (pFLyr == null)
             {
@@ -203,52 +116,7 @@ namespace MakeACustomTimeControl2008
             if (m_myLayerTimeExtent == null || m_mapControl == null)
                 return;
 
-            if (m_isRasterSeries)
-            {
-                UpdateRasterTimeSeries(progress);
-            }
-            else
-            {
-                UpdateFeatureLayerTime(progress);
-            }
-        }
-
-        private void UpdateRasterTimeSeries(double progress)
-        {
-            if (m_rasterLayers.Count == 0)
-                return;
-
-            // 计算当前应该显示的年份索引
-            int newIndex = (int)(progress * (m_rasterLayers.Count - 1) / 100.0);
-            newIndex = Math.Max(0, Math.Min(m_rasterLayers.Count - 1, newIndex));
-
-            if (newIndex == m_currentRasterIndex)
-                return;
-
-            // 移除当前图层
-            IMap map = m_mapControl.Map;
-            for (int i = map.LayerCount - 1; i >= 0; i--)
-            {
-                if (m_rasterLayers.Contains(map.get_Layer(i) as IRasterLayer))
-                {
-                    map.DeleteLayer(map.get_Layer(i));
-                }
-            }
-
-            // 添加新图层
-            map.AddLayer(m_rasterLayers[newIndex]);
-            m_currentRasterIndex = newIndex;
-
-            // 更新时间显示
-            UpdateTimeDisplay(m_yearToDate[newIndex]);
-
-            // 更新状态栏显示当前年份
-            string year = m_yearToDate[newIndex].Year.ToString();
-             m_sliderDlg.UpdateStatusLabel($"当前年份: {year}");
-        }
-
-        private void UpdateFeatureLayerTime(double progress)
-        {
+            // 计算图层动态变化的时间
             ITimeDuration offsetToNewCurrentTime = m_myLayerTimeExtent.QueryTimeDuration();
             offsetToNewCurrentTime.Scale(progress);
 
@@ -270,22 +138,62 @@ namespace MakeACustomTimeControl2008
             pActiveView.Refresh();
         }
 
-        private void UpdateTimeDisplay(DateTime date)
+
+        private void HandleRasterTimeAnimation(IRasterLayer rasterLayer)
         {
-            IActiveView activeView = m_mapControl.Map as IActiveView;
-            IScreenDisplay screenDisplay = activeView.ScreenDisplay;
-            ITimeDisplay timeDisplay = screenDisplay as ITimeDisplay;
+            // 假设图层名称包含年份信息
+            string layerName = rasterLayer.Name;
+            if (layerName.Contains("2014") || layerName.Contains("2024"))
+            {
+                // 收集所有年份的栅格图层
+                m_rasterLayers.Clear();
+                for (int i = 0; i < m_mapControl.Map.LayerCount; i++)
+                {
+                    IRasterLayer rl = m_mapControl.Map.get_Layer(i) as IRasterLayer;
+                    if (rl != null && rl.Name.Contains("NDVI"))
+                    {
+                        m_rasterLayers.Add(rl);
+                        rl.Visible = false; // 初始全部隐藏
+                    }
+                }
 
+                // 按年份排序
+                m_rasterLayers = m_rasterLayers.OrderBy(r => r.Name).ToList();
 
-            ITimeExtent timeExtent = new TimeExtent() as ITimeExtent;
-            ITime time = new Time() as ITime;
-            // 修改调用方法
-            time.SetTimeFromDateTime(date);
-            timeExtent.SetExtent(time, time);
+                if (m_rasterLayers.Count > 0)
+                {
+                    // 显示第一个图层
+                    m_rasterLayers[0].Visible = true;
+                    m_mapControl.ActiveView.Refresh();
 
-            // 更新时间显示
-            timeDisplay.TimeValue = timeExtent as ITimeValue;
-            activeView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+                    // 创建并显示动画控制窗口
+                    m_sliderDlg = new TimeSliderDialog(this);
+                    m_sliderDlg.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("请确保栅格图层名称包含年份信息(如2014-2024)！");
+            }
         }
+
+
+        public void UpdateRasterFrame(int frameIndex)
+        {
+            if (frameIndex >= 0 && frameIndex < m_rasterLayers.Count)
+            {
+                // 隐藏所有栅格图层
+                foreach (var layer in m_rasterLayers)
+                {
+                    layer.Visible = false;
+                }
+
+                // 显示当前帧的图层
+                m_rasterLayers[frameIndex].Visible = true;
+                m_mapControl.ActiveView.Refresh();
+            }
+        }
+
+
     }
 }

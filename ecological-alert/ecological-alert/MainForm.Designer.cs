@@ -35,9 +35,8 @@
             this.slope计算ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.年间差异ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.judge = new System.Windows.Forms.ToolStripMenuItem();
-            this.openshp = new System.Windows.Forms.ToolStripMenuItem();
             this.create_view = new System.Windows.Forms.ToolStripMenuItem();
+            this.栅格动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.预警ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.缓冲区分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.按掩膜提取ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,15 +47,14 @@
             this.赋颜色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
-            this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.栅格动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -97,34 +95,25 @@
             // 动画ToolStripMenuItem
             // 
             this.动画ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.judge,
-            this.openshp,
             this.create_view,
             this.栅格动画ToolStripMenuItem});
             this.动画ToolStripMenuItem.Name = "动画ToolStripMenuItem";
             this.动画ToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
             this.动画ToolStripMenuItem.Text = "动画";
             // 
-            // judge
-            // 
-            this.judge.Name = "judge";
-            this.judge.Size = new System.Drawing.Size(254, 30);
-            this.judge.Text = "可用图层判断";
-            this.judge.Click += new System.EventHandler(this.可用图层判断ToolStripMenuItem_Click);
-            // 
-            // openshp
-            // 
-            this.openshp.Name = "openshp";
-            this.openshp.Size = new System.Drawing.Size(254, 30);
-            this.openshp.Text = "打开shp";
-            this.openshp.Click += new System.EventHandler(this.openshp_Click);
-            // 
             // create_view
             // 
             this.create_view.Name = "create_view";
-            this.create_view.Size = new System.Drawing.Size(254, 30);
-            this.create_view.Text = "创建并显示frmTime";
+            this.create_view.Size = new System.Drawing.Size(252, 30);
+            this.create_view.Text = "shp动画";
             this.create_view.Click += new System.EventHandler(this.create_view_Click);
+            // 
+            // 栅格动画ToolStripMenuItem
+            // 
+            this.栅格动画ToolStripMenuItem.Name = "栅格动画ToolStripMenuItem";
+            this.栅格动画ToolStripMenuItem.Size = new System.Drawing.Size(252, 30);
+            this.栅格动画ToolStripMenuItem.Text = "栅格动画";
+            this.栅格动画ToolStripMenuItem.Click += new System.EventHandler(this.栅格动画ToolStripMenuItem_Click);
             // 
             // 预警ToolStripMenuItem
             // 
@@ -201,15 +190,6 @@
             this.axTOCControl1.Size = new System.Drawing.Size(153, 258);
             this.axTOCControl1.TabIndex = 2;
             // 
-            // axMapControl1
-            // 
-            this.axMapControl1.Location = new System.Drawing.Point(161, 67);
-            this.axMapControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.axMapControl1.Name = "axMapControl1";
-            this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(402, 258);
-            this.axMapControl1.TabIndex = 3;
-            // 
             // axLicenseControl1
             // 
             this.axLicenseControl1.Enabled = true;
@@ -224,12 +204,14 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // 栅格动画ToolStripMenuItem
+            // axMapControl1
             // 
-            this.栅格动画ToolStripMenuItem.Name = "栅格动画ToolStripMenuItem";
-            this.栅格动画ToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
-            this.栅格动画ToolStripMenuItem.Text = "栅格动画";
-            this.栅格动画ToolStripMenuItem.Click += new System.EventHandler(this.栅格动画ToolStripMenuItem_Click);
+            this.axMapControl1.Location = new System.Drawing.Point(161, 67);
+            this.axMapControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.axMapControl1.Name = "axMapControl1";
+            this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
+            this.axMapControl1.Size = new System.Drawing.Size(402, 258);
+            this.axMapControl1.TabIndex = 3;
             // 
             // Mainform
             // 
@@ -248,8 +230,8 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,8 +256,6 @@
         private System.Windows.Forms.ToolStripMenuItem 镶嵌ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重分类ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 赋颜色ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem judge;
-        private System.Windows.Forms.ToolStripMenuItem openshp;
         private System.Windows.Forms.ToolStripMenuItem create_view;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem 栅格动画ToolStripMenuItem;
