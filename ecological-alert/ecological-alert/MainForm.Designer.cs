@@ -125,12 +125,14 @@
             this.均值求差ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.均值求差ToolStripMenuItem.Text = "均值求差";
             this.均值求差ToolStripMenuItem.Click += new System.EventHandler(this.均值求差ToolStripMenuItem_Click);
+
             // 
             // 按掩膜提取ToolStripMenuItem1
             // 
             this.按掩膜提取ToolStripMenuItem1.Name = "按掩膜提取ToolStripMenuItem1";
             this.按掩膜提取ToolStripMenuItem1.Size = new System.Drawing.Size(324, 38);
             this.按掩膜提取ToolStripMenuItem1.Text = "按掩膜提取";
+            this.按掩膜提取ToolStripMenuItem1.Click += new System.EventHandler(this.按掩膜提取ToolStripMenuItem1_Click);
             // 
             // 赋权重ToolStripMenuItem
             // 
@@ -144,12 +146,14 @@
             this.镶嵌ToolStripMenuItem.Name = "镶嵌ToolStripMenuItem";
             this.镶嵌ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.镶嵌ToolStripMenuItem.Text = "镶嵌";
+            this.镶嵌ToolStripMenuItem.Click += new System.EventHandler(this.镶嵌ToolStripMenuItem_Click);
             // 
             // 重分类ToolStripMenuItem
             // 
             this.重分类ToolStripMenuItem.Name = "重分类ToolStripMenuItem";
             this.重分类ToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.重分类ToolStripMenuItem.Text = "重分类";
+            this.重分类ToolStripMenuItem.Click += new System.EventHandler(this.重分类ToolStripMenuItem_Click);
             // 
             // 赋颜色ToolStripMenuItem
             // 

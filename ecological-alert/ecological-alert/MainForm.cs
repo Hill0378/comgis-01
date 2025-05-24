@@ -1,23 +1,49 @@
 ﻿using System;
 using System.Windows.Forms;
+using ESRI.ArcGIS.Geodatabase;
+using ESRI.ArcGIS.Carto;
+using ESRI.ArcGIS.Geometry;
+using System.Collections.Generic;
+using ESRI.ArcGIS.SpatialAnalyst;
+using System.Runtime.InteropServices;
+using ESRI.ArcGIS.DataSourcesRaster;
+using ESRI.ArcGIS.GeoAnalyst;
 using ESRI.ArcGIS.Controls;
+using ESRI.ArcGIS.Geoprocessing;
+using System.IO;
+using System.Text;
+using ESRI.ArcGIS.esriSystem;
+using ESRI.ArcGIS.Geoprocessor;
+
 
 namespace ecological_alert
 {
     public partial class Mainform : Form
     {
+
+
         public Mainform()
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            //InitializeMapControl();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+     
+        private void 按掩膜提取ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            axToolbarControl1.SetBuddyControl(axMapControl1);
-            axTOCControl1.SetBuddyControl(axMapControl1);
+
+            mask form = new mask(axMapControl1);
+
+            form.ShowDialog();
         }
 
+        private void 镶嵌ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            MosaicDialog form = new MosaicDialog(axMapControl1);
+            form.ShowDialog();
+
+        }
 
         private void 缓冲区分析ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -45,6 +71,15 @@ namespace ecological_alert
 
         }
 
+
+        private void 重分类ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            negation form = new negation(axMapControl1);
+
+            form.ShowDialog();
+        }
+
+        
         private void 均值求差ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form_MeanDifference form = new Form_MeanDifference(axMapControl1);
