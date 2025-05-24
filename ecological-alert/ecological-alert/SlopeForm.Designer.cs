@@ -40,41 +40,46 @@
             // lblSelectLayers
             // 
             this.lblSelectLayers.AutoSize = true;
-            this.lblSelectLayers.Location = new System.Drawing.Point(102, 53);
+            this.lblSelectLayers.Location = new System.Drawing.Point(51, 26);
+            this.lblSelectLayers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSelectLayers.Name = "lblSelectLayers";
-            this.lblSelectLayers.Size = new System.Drawing.Size(250, 24);
+            this.lblSelectLayers.Size = new System.Drawing.Size(125, 12);
             this.lblSelectLayers.TabIndex = 0;
             this.lblSelectLayers.Text = "选择栅格图层（多选）";
             // 
             // clbRasterLayers
             // 
             this.clbRasterLayers.FormattingEnabled = true;
-            this.clbRasterLayers.Location = new System.Drawing.Point(383, 53);
+            this.clbRasterLayers.Location = new System.Drawing.Point(192, 26);
+            this.clbRasterLayers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.clbRasterLayers.Name = "clbRasterLayers";
-            this.clbRasterLayers.Size = new System.Drawing.Size(257, 184);
+            this.clbRasterLayers.Size = new System.Drawing.Size(130, 84);
             this.clbRasterLayers.TabIndex = 1;
             // 
             // lblOutputPath
             // 
             this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Location = new System.Drawing.Point(118, 277);
+            this.lblOutputPath.Location = new System.Drawing.Point(59, 138);
+            this.lblOutputPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOutputPath.Name = "lblOutputPath";
-            this.lblOutputPath.Size = new System.Drawing.Size(154, 24);
+            this.lblOutputPath.Size = new System.Drawing.Size(77, 12);
             this.lblOutputPath.TabIndex = 2;
             this.lblOutputPath.Text = "输出文件路径";
             // 
             // txtOutputPath
             // 
-            this.txtOutputPath.Location = new System.Drawing.Point(296, 274);
+            this.txtOutputPath.Location = new System.Drawing.Point(148, 137);
+            this.txtOutputPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtOutputPath.Name = "txtOutputPath";
-            this.txtOutputPath.Size = new System.Drawing.Size(344, 35);
+            this.txtOutputPath.Size = new System.Drawing.Size(174, 21);
             this.txtOutputPath.TabIndex = 3;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(660, 277);
+            this.btnBrowse.Location = new System.Drawing.Point(333, 133);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(113, 35);
+            this.btnBrowse.Size = new System.Drawing.Size(56, 23);
             this.btnBrowse.TabIndex = 4;
             this.btnBrowse.Text = "浏览...";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -82,9 +87,10 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(153, 368);
+            this.btnOK.Location = new System.Drawing.Point(76, 184);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(107, 37);
+            this.btnOK.Size = new System.Drawing.Size(54, 23);
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -92,9 +98,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(544, 368);
+            this.btnCancel.Location = new System.Drawing.Point(272, 184);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(107, 37);
+            this.btnCancel.Size = new System.Drawing.Size(54, 23);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -102,9 +109,9 @@
             // 
             // SlopeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(400, 225);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnBrowse);
@@ -112,7 +119,10 @@
             this.Controls.Add(this.lblOutputPath);
             this.Controls.Add(this.clbRasterLayers);
             this.Controls.Add(this.lblSelectLayers);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimizeBox = false;
             this.Name = "SlopeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Slope计算";
             this.ResumeLayout(false);
             this.PerformLayout();

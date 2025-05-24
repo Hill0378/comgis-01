@@ -41,41 +41,46 @@
             // lblLayers
             // 
             this.lblLayers.AutoSize = true;
-            this.lblLayers.Location = new System.Drawing.Point(58, 28);
+            this.lblLayers.Location = new System.Drawing.Point(31, 25);
+            this.lblLayers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLayers.Name = "lblLayers";
-            this.lblLayers.Size = new System.Drawing.Size(130, 24);
+            this.lblLayers.Size = new System.Drawing.Size(65, 12);
             this.lblLayers.TabIndex = 0;
             this.lblLayers.Text = "选择图层：";
             // 
             // clbRasterLayers
             // 
             this.clbRasterLayers.FormattingEnabled = true;
-            this.clbRasterLayers.Location = new System.Drawing.Point(276, 28);
+            this.clbRasterLayers.Location = new System.Drawing.Point(138, 25);
+            this.clbRasterLayers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.clbRasterLayers.Name = "clbRasterLayers";
-            this.clbRasterLayers.Size = new System.Drawing.Size(239, 94);
+            this.clbRasterLayers.Size = new System.Drawing.Size(210, 68);
             this.clbRasterLayers.TabIndex = 1;
             // 
             // lblOutput
             // 
             this.lblOutput.AutoSize = true;
-            this.lblOutput.Location = new System.Drawing.Point(62, 223);
+            this.lblOutput.Location = new System.Drawing.Point(31, 134);
+            this.lblOutput.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOutput.Name = "lblOutput";
-            this.lblOutput.Size = new System.Drawing.Size(202, 24);
+            this.lblOutput.Size = new System.Drawing.Size(101, 12);
             this.lblOutput.TabIndex = 2;
             this.lblOutput.Text = "输出文件夹路径：";
             // 
             // txtOutputPath
             // 
-            this.txtOutputPath.Location = new System.Drawing.Point(289, 211);
+            this.txtOutputPath.Location = new System.Drawing.Point(138, 132);
+            this.txtOutputPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtOutputPath.Name = "txtOutputPath";
-            this.txtOutputPath.Size = new System.Drawing.Size(226, 35);
+            this.txtOutputPath.Size = new System.Drawing.Size(115, 21);
             this.txtOutputPath.TabIndex = 3;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(573, 211);
+            this.btnBrowse.Location = new System.Drawing.Point(286, 130);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(119, 40);
+            this.btnBrowse.Size = new System.Drawing.Size(60, 20);
             this.btnBrowse.TabIndex = 4;
             this.btnBrowse.Text = "浏览";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -83,9 +88,10 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(112, 327);
+            this.btnOK.Location = new System.Drawing.Point(58, 178);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(119, 40);
+            this.btnOK.Size = new System.Drawing.Size(60, 20);
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -93,9 +99,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(533, 327);
+            this.btnCancel.Location = new System.Drawing.Point(268, 178);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(119, 40);
+            this.btnCancel.Size = new System.Drawing.Size(60, 20);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -103,9 +110,9 @@
             // 
             // Form_MeanDifference
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(400, 225);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnBrowse);
@@ -113,8 +120,11 @@
             this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.clbRasterLayers);
             this.Controls.Add(this.lblLayers);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaximizeBox = false;
             this.Name = "Form_MeanDifference";
-            this.Text = "FormMeanSubtract";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "均值求差";
             this.Load += new System.EventHandler(this.Form_MeanDifference_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -102,12 +102,12 @@ namespace ecological_alert
                     IMapAlgebraOp algebra = new RasterMapAlgebraOpClass();
                     algebra.BindRaster((IGeoDataset)raster1, "r1");
                     algebra.BindRaster((IGeoDataset)raster2, "r2");
-                    IRaster result = (IRaster)algebra.Execute("[r2] - [r1]");
+                    IRaster result = (IRaster)algebra.Execute("[r1] - [r2]");
                     
 
                     string name1 = rasterLayers[i - 1].Name;
                     string name2 = rasterLayers[i].Name;
-                    string outputFile = Path.Combine(outputFolder, $"{name2}-{name1}.tif");
+                    string outputFile = Path.Combine(outputFolder, $"{name1}-{name2}.tif");
 
                     SaveRaster((IRaster)result, outputFile);
 
@@ -143,5 +143,7 @@ namespace ecological_alert
         {
             this.Close();
         }
+
+        
     }
 }
