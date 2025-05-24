@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -41,6 +41,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.AxControls, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
+    <Reference Include="ESRI.ArcGIS.Carto, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ESRI.ArcGIS.Controls, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -56,6 +59,12 @@
     </Reference>
     <Reference Include="ESRI.ArcGIS.Framework, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Geoprocessor, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -93,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <!-- 原有功能文件 -->
     <Compile Include="BufferForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +166,26 @@
     <Compile Include="SlopeForm.Designer.cs">
       <DependentUpon>SlopeForm.cs</DependentUpon>
     </Compile>
+    
+    <!-- 时间动画新功能文件 -->
+    <Compile Include="CustomTimeSliderButton.cs" />
+    <Compile Include="frmTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTime.designer.cs">
+      <DependentUpon>frmTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RasterBandAnimation.cs" />
+    <Compile Include="RasterLayerHelper.cs" />
+    <Compile Include="ShpTimeAnimationController.cs" />
+    <Compile Include="TimeSliderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeSliderDialog.designer.cs">
+      <DependentUpon>TimeSliderDialog.cs</DependentUpon>
+    </Compile>
+
+    <!-- 资源文件 -->
     <EmbeddedResource Include="BufferForm.resx">
       <DependentUpon>BufferForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_MeanDifference.resx">
       <DependentUpon>Form_MeanDifference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTime.resx">
+      <DependentUpon>frmTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
@@ -185,16 +218,19 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="TimeSliderDialog.resx">
+      <DependentUpon>TimeSliderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RasterSubtractForm.resx">
       <DependentUpon>RasterSubtractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SlopeForm.resx">
       <DependentUpon>SlopeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -297,7 +333,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="esriGeoprocessing">
       <Guid>{C031A050-82C6-4F8F-8836-5692631CFFE6}</Guid>
