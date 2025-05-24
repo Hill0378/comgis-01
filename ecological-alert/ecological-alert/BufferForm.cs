@@ -9,7 +9,6 @@ using ESRI.ArcGIS.esriSystem;
 using ESRI.ArcGIS.AnalysisTools;
 using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.DataSourcesFile;
 
 namespace ecological_alert
 {
