@@ -137,63 +137,130 @@ namespace ecological_alert
         }
 
         // 修改SaveAndDisplayResult中的FeatureBuffer管理
+        //private void SaveAndDisplayResult(IGeometryCollection geometryCollection, string layerName)
+        //{
+        //    IFeatureClass featureClass = CreateOutputFeatureClass(layerName);
+        //    IFeatureBuffer featureBuffer = null;
+        //    try
+        //    {
+        //        featureBuffer = featureClass.CreateFeatureBuffer();
+        //        for (int i = 0; i < geometryCollection.GeometryCount; i++)
+        //        {
+        //            var geometry = geometryCollection.get_Geometry(i);
+        //            if (geometry.IsEmpty) continue;
+
+        //            IFeature feature = featureClass.CreateFeature();
+        //            feature.Shape = geometry;
+        //            feature.Store();
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        if (featureBuffer != null)
+        //            System.Runtime.InteropServices.Marshal.ReleaseComObject(featureBuffer);
+        //    }
+
+        //    // 添加到地图
+        //    IFeatureLayer featureLayer = new FeatureLayer();
+        //    featureLayer.FeatureClass = featureClass;
+        //    featureLayer.Name = layerName;
+        //    _mapControl.AddLayer(featureLayer, 0);
+        //    _mapControl.Refresh();
+        //}
+
         private void SaveAndDisplayResult(IGeometryCollection geometryCollection, string layerName)
         {
             IFeatureClass featureClass = CreateOutputFeatureClass(layerName);
-            IFeatureBuffer featureBuffer = null;
-            try
-            {
-                featureBuffer = featureClass.CreateFeatureBuffer();
-                for (int i = 0; i < geometryCollection.GeometryCount; i++)
-                {
-                    var geometry = geometryCollection.get_Geometry(i);
-                    if (geometry.IsEmpty) continue;
 
-                    IFeature feature = featureClass.CreateFeature();
-                    feature.Shape = geometry;
-                    feature.Store();
-                }
-            }
-            finally
+            for (int i = 0; i < geometryCollection.GeometryCount; i++)
             {
-                if (featureBuffer != null)
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(featureBuffer);
+                IGeometry geometry = geometryCollection.get_Geometry(i);
+                if (geometry == null || geometry.IsEmpty)
+                    continue;
+
+                IFeature feature = featureClass.CreateFeature();
+                feature.Shape = geometry;
+                feature.Store();
             }
 
-            // 添加到地图
-            IFeatureLayer featureLayer = new FeatureLayer();
+            // 显示图层
+            IFeatureLayer featureLayer = new FeatureLayerClass();
             featureLayer.FeatureClass = featureClass;
             featureLayer.Name = layerName;
-            _mapControl.AddLayer(featureLayer, 0);
+
+            _mapControl.AddLayer(featureLayer);
             _mapControl.Refresh();
         }
 
         // 创建输出要素类
+        //private IFeatureClass CreateOutputFeatureClass(string layerName)
+        //{
+        //    IWorkspaceFactory workspaceFactory = new ShapefileWorkspaceFactory();
+        //    IWorkspace workspace = workspaceFactory.OpenFromFile(System.IO.Path.GetTempPath(), 0);
+
+        //    // 定义字段
+        //    IFields fields = new Fields();
+        //    IFieldsEdit fieldsEdit = (IFieldsEdit)fields;
+
+        //    // 添加几何字段
+        //    IField shapeField = new Field();
+        //    IFieldEdit shapeFieldEdit = (IFieldEdit)shapeField;
+        //    shapeFieldEdit.Name_2 = "Shape";
+        //    shapeFieldEdit.Type_2 = esriFieldType.esriFieldTypeGeometry;
+
+        //    // 几何定义
+        //    IGeometryDef geometryDef = new GeometryDef();
+        //    IGeometryDefEdit geometryDefEdit = (IGeometryDefEdit)geometryDef;
+        //    geometryDefEdit.GeometryType_2 = esriGeometryType.esriGeometryPolygon;
+        //    geometryDefEdit.SpatialReference_2 = _mapControl.SpatialReference;
+
+        //    shapeFieldEdit.GeometryDef_2 = geometryDef;
+        //    fieldsEdit.AddField(shapeField);
+
+        //    // 创建要素类
+        //    return ((IFeatureWorkspace)workspace).CreateFeatureClass(
+        //        layerName,
+        //        fields,
+        //        null,
+        //        null,
+        //        esriFeatureType.esriFTSimple,
+        //        "Shape",
+        //        "");
+        //}
+
         private IFeatureClass CreateOutputFeatureClass(string layerName)
         {
             IWorkspaceFactory workspaceFactory = new ShapefileWorkspaceFactory();
             IWorkspace workspace = workspaceFactory.OpenFromFile(System.IO.Path.GetTempPath(), 0);
 
             // 定义字段
-            IFields fields = new Fields();
+            IFields fields = new FieldsClass();
             IFieldsEdit fieldsEdit = (IFieldsEdit)fields;
 
-            // 添加几何字段
-            IField shapeField = new Field();
+            // 添加OID字段
+            IField oidField = new FieldClass();
+            IFieldEdit oidFieldEdit = (IFieldEdit)oidField;
+            oidFieldEdit.Name_2 = "OID";
+            oidFieldEdit.Type_2 = esriFieldType.esriFieldTypeOID;
+            fieldsEdit.AddField(oidField);
+
+            // 添加Shape字段
+            IField shapeField = new FieldClass();
             IFieldEdit shapeFieldEdit = (IFieldEdit)shapeField;
             shapeFieldEdit.Name_2 = "Shape";
             shapeFieldEdit.Type_2 = esriFieldType.esriFieldTypeGeometry;
 
             // 几何定义
-            IGeometryDef geometryDef = new GeometryDef();
+            IGeometryDef geometryDef = new GeometryDefClass();
             IGeometryDefEdit geometryDefEdit = (IGeometryDefEdit)geometryDef;
             geometryDefEdit.GeometryType_2 = esriGeometryType.esriGeometryPolygon;
             geometryDefEdit.SpatialReference_2 = _mapControl.SpatialReference;
+            geometryDefEdit.HasZ_2 = false;
+            geometryDefEdit.HasM_2 = false;
 
             shapeFieldEdit.GeometryDef_2 = geometryDef;
             fieldsEdit.AddField(shapeField);
 
-            // 创建要素类
             return ((IFeatureWorkspace)workspace).CreateFeatureClass(
                 layerName,
                 fields,
@@ -201,10 +268,10 @@ namespace ecological_alert
                 null,
                 esriFeatureType.esriFTSimple,
                 "Shape",
-                "");
+                ""
+            );
         }
 
-        
 
         private List<IFeatureLayer> GetCheckedLayers(CheckedListBox clb)
         {

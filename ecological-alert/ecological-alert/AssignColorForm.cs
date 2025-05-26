@@ -1,32 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.DataSourcesRaster;
 using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.Geometry;
-using ecological_alert;
 using ESRI.ArcGIS.Controls;
-using System.Text.RegularExpressions;
 using ESRI.ArcGIS.Display;
-
-
-
-
-
 
 namespace ecological_alert
 {
     public partial class AssignColorForm : Form
     {
-
         private AxMapControl _mapControl;
 
         public AssignColorForm(AxMapControl mapControl)
@@ -88,23 +72,22 @@ namespace ecological_alert
                 return;
             }
 
-            // 获取 IRaster
             IRaster raster = rasterLayer.Raster;
             IRasterProps props = (IRasterProps)raster;
             int width = props.Width;
             int height = props.Height;
 
-            // 读取像素
+            // 读取像素（请确保 SlopeCalculator.ReadRasterPixels 已实现）
             float[,] pixels = SlopeCalculator.ReadRasterPixels(raster, width, height);
 
-            // 生成新像素值（此处不改变原值，仅复制）
+            // 复制像素数组
             float[,] newPixels = (float[,])pixels.Clone();
 
-            // 保存新栅格
+            // 保存新栅格（请确保 SlopeCalculator.SaveRaster2 已实现）
             string outputPath = txtOutputPath.Text;
             SlopeCalculator.SaveRaster2(newPixels, props, outputPath);
 
-            // 加入地图并赋颜色
+            // 加载结果并赋颜色
             AddRasterWithColor(outputPath);
 
             this.Close();
@@ -116,13 +99,12 @@ namespace ecological_alert
             string folder = System.IO.Path.GetDirectoryName(rasterPath);
             string file = System.IO.Path.GetFileName(rasterPath);
 
-
             IRasterWorkspace2 rasterWs = wsFactory.OpenFromFile(folder, 0) as IRasterWorkspace2;
             IRasterDataset rasterDataset = rasterWs.OpenRasterDataset(file);
             IRasterLayer rasterLayer = new RasterLayer();
             rasterLayer.CreateFromDataset(rasterDataset);
 
-            // 设置颜色渲染
+            // 应用颜色渲染
             ApplyPositiveNegativeColorRampRenderer(rasterLayer);
 
             _mapControl.AddLayer(rasterLayer);
@@ -133,30 +115,23 @@ namespace ecological_alert
         {
             IRaster raster = rasterLayer.Raster;
             IRaster2 raster2 = (IRaster2)raster;
-            IRasterDataset rasterDataset = raster2.RasterDataset;
-
             IRasterProps props = (IRasterProps)raster;
             int width = props.Width;
             int height = props.Height;
 
             float[,] pixels = SlopeCalculator.ReadRasterPixels(raster, width, height);
 
-            // 过滤 NoData (-9999f)
-            float noDataValue = -9999f;
-
-            // 找出负数和非负数的最大最小值
-            float minPos = float.MaxValue;   // ≥0最小值
-            float maxPos = float.MinValue;   // ≥0最大值
-            float minNeg = float.MaxValue;   // 负数最小（绝对值最大）
-            float maxNeg = float.MinValue;   // 负数最大（绝对值最小）
+            float noData = -9999f;
+            float minPos = float.MaxValue, maxPos = float.MinValue;
+            float minNeg = float.MaxValue, maxNeg = float.MinValue;
 
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
                     float val = pixels[i, j];
-                    if (val == noDataValue || float.IsNaN(val))
-                        continue;
+                    if (val == noData || float.IsNaN(val)) continue;
+
                     if (val >= 0)
                     {
                         if (val < minPos) minPos = val;
@@ -165,84 +140,102 @@ namespace ecological_alert
                     else
                     {
                         float absVal = Math.Abs(val);
-                        if (absVal < maxNeg) maxNeg = absVal;
-                        if (absVal > minNeg) minNeg = absVal;
+                        if (absVal < minNeg) minNeg = absVal;
+                        if (absVal > maxNeg) maxNeg = absVal;
                     }
                 }
             }
 
-            // 计算断点数量（两部分分别3类）
-            int classCountPerSide = 3;
+            // 防止无数据
+            if (minPos == float.MaxValue) { minPos = 0; maxPos = 1; }
+            if (minNeg == float.MaxValue) { minNeg = 0; maxNeg = 1; }
+
+            int classCountPerSide = 10;
             int totalClassCount = classCountPerSide * 2;
 
-            IRasterClassifyColorRampRenderer classifyRenderer = new RasterClassifyColorRampRenderer();
-            classifyRenderer.ClassCount = totalClassCount;
+            IRasterClassifyColorRampRenderer renderer = new RasterClassifyColorRampRendererClass();
+            renderer.ClassCount = totalClassCount;
 
             double[] breaks = new double[totalClassCount + 1];
 
-            // 负数部分断点（注意断点要用原始值，负数是小于0）
-            // 因为渲染断点按升序，所以负数部分从 -minNeg 到 -maxNeg 逆序
-            // 这里用负数值断点区间从 -minNeg (最接近0) 到 -maxNeg (最小值)
+            // 负值断点（从 -maxNeg 到 -minNeg）
             for (int i = 0; i <= classCountPerSide; i++)
             {
-                // 负数区间从 -minNeg 到 -maxNeg
-                breaks[i] = -minNeg + i * ((-maxNeg + minNeg) / classCountPerSide);
+                breaks[i] = -maxNeg + i * ((maxNeg - minNeg) / classCountPerSide);
             }
-
-            // >=0部分断点，从 minPos 到 maxPos
+            // 正值断点（从 minPos 到 maxPos）
             for (int i = 0; i <= classCountPerSide; i++)
             {
                 breaks[classCountPerSide + i] = minPos + i * ((maxPos - minPos) / classCountPerSide);
             }
 
-            // 设置断点，断点数 = ClassCount
+            // 设置断点
             for (int i = 0; i < totalClassCount; i++)
             {
-                classifyRenderer.set_Break(i, breaks[i + 1]);
+                renderer.set_Break(i, breaks[i + 1]);
             }
 
-            // 颜色渐变设置
-            // 负数用黄->橙->红（绝对值小黄，大红）
-            IColor[] negColors = new IColor[]
-            {
-        ColorToRgbColor(Color.Yellow),
-        ColorToRgbColor(Color.Orange),
-        ColorToRgbColor(Color.Red)
-            };
+            // HSV 渐变色带
+            IColor[] negColors = GenerateHSVColors(classCountPerSide, 0, 60);     // 红到黄
+            IColor[] posColors = GenerateHSVColors(classCountPerSide, 90, 180); // 绿到深绿
 
-            // 非负数用浅绿->深绿
-            IColor[] posColors = new IColor[]
-            {
-        ColorToRgbColor(Color.LightGreen),
-        ColorToRgbColor(Color.Green),
-        ColorToRgbColor(Color.DarkGreen)
-            };
-
-            // 设置符号和标签
+            // 设置符号
             for (int i = 0; i < classCountPerSide; i++)
             {
-                classifyRenderer.set_Label(i, $"< 0 Class {i + 1}");
-                classifyRenderer.set_Symbol(i, CreateFillSymbol(negColors[i]));
+                renderer.set_Label(i, $"< 0 Class {i + 1}");
+                renderer.set_Symbol(i, CreateFillSymbol(negColors[i]));
             }
             for (int i = 0; i < classCountPerSide; i++)
             {
-                classifyRenderer.set_Label(classCountPerSide + i, $">= 0 Class {i + 1}");
-                classifyRenderer.set_Symbol(classCountPerSide + i, CreateFillSymbol(posColors[i]));
+                renderer.set_Label(classCountPerSide + i, $">= 0 Class {i + 1}");
+                renderer.set_Symbol(classCountPerSide + i, CreateFillSymbol(posColors[i]));
             }
 
-            // 绑定 Raster，调用 Update()
-            IRasterRenderer rasterRenderer = (IRasterRenderer)classifyRenderer;
+            IRasterRenderer rasterRenderer = (IRasterRenderer)renderer;
             rasterRenderer.Raster = raster;
             rasterRenderer.Update();
-
             rasterLayer.Renderer = rasterRenderer;
         }
 
+        private IColor[] GenerateHSVColors(int count, float startHue, float endHue)
+        {
+            IColor[] colors = new IColor[count];
+            float hueStep = (endHue - startHue) / Math.Max(count - 1, 1);
+
+            for (int i = 0; i < count; i++)
+            {
+                float hue = startHue + i * hueStep;
+                Color color = ColorFromHSV(hue, 1.0f, 1.0f); // 饱和度和亮度为 1.0
+                colors[i] = ColorToRgbColor(color);
+            }
+
+            return colors;
+        }
+
+        private Color ColorFromHSV(float hue, float saturation, float value)
+        {
+            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+            float f = hue / 60 - (float)Math.Floor(hue / 60);
+
+            value = value * 255;
+            int v = Convert.ToInt32(value);
+            int p = Convert.ToInt32(value * (1 - saturation));
+            int q = Convert.ToInt32(value * (1 - f * saturation));
+            int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
+
+            switch (hi)
+            {
+                case 0: return Color.FromArgb(255, v, t, p);
+                case 1: return Color.FromArgb(255, q, v, p);
+                case 2: return Color.FromArgb(255, p, v, t);
+                case 3: return Color.FromArgb(255, p, q, v);
+                case 4: return Color.FromArgb(255, t, p, v);
+                default: return Color.FromArgb(255, v, p, q);
+            }
+        }
 
 
-
-
-        private IRgbColor ColorToRgbColor(System.Drawing.Color color)
+        private IRgbColor ColorToRgbColor(Color color)
         {
             IRgbColor rgbColor = new RgbColor();
             rgbColor.Red = color.R;
@@ -262,6 +255,5 @@ namespace ecological_alert
         {
             this.Close();
         }
-
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using ESRI.ArcGIS.Controls;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.DataSourcesRaster;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.SpatialAnalyst;
-using ESRI.ArcGIS.SpatialAnalystTools;
 
 namespace ecological_alert
 {
@@ -24,7 +22,7 @@ namespace ecological_alert
 
         private void btnLoadLayers_Click(object sender, EventArgs e)
         {
-            lstRasterLayers.Items.Clear();
+            clbRasterLayers.Items.Clear();
 
             IMap map = _mapControl.Map;
             for (int i = 0; i < map.LayerCount; i++)
@@ -32,7 +30,7 @@ namespace ecological_alert
                 ILayer layer = map.get_Layer(i);
                 if (layer is IRasterLayer)
                 {
-                    lstRasterLayers.Items.Add(layer.Name);
+                    clbRasterLayers.Items.Add(layer.Name);
                 }
             }
         }
@@ -50,9 +48,16 @@ namespace ecological_alert
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            if (lstRasterLayers.Items.Count < 2)
+            // 获取用户勾选的图层名（保持用户勾选顺序）
+            List<string> selectedNames = new List<string>();
+            foreach (var item in clbRasterLayers.CheckedItems)
             {
-                MessageBox.Show("请至少选择两个栅格图层。");
+                selectedNames.Add(item.ToString());
+            }
+
+            if (selectedNames.Count < 2)
+            {
+                MessageBox.Show("请至少勾选两个图层进行相邻作差。");
                 return;
             }
 
@@ -63,18 +68,17 @@ namespace ecological_alert
                 return;
             }
 
-            IMap map = _mapControl.Map;
+            // 获取用户勾选的 IRasterLayer
             List<IRasterLayer> rasterLayers = new List<IRasterLayer>();
-
-            // 获取图层顺序并转换为实际图层对象
-            foreach (var item in lstRasterLayers.Items)
+            IMap map = _mapControl.Map;
+            foreach (string name in selectedNames)
             {
-                string name = item.ToString();
                 for (int i = 0; i < map.LayerCount; i++)
                 {
-                    if (map.get_Layer(i).Name == name && map.get_Layer(i) is IRasterLayer)
+                    ILayer layer = map.get_Layer(i);
+                    if (layer is IRasterLayer rasterLayer && layer.Name == name)
                     {
-                        rasterLayers.Add(map.get_Layer(i) as IRasterLayer);
+                        rasterLayers.Add(rasterLayer);
                         break;
                     }
                 }
@@ -90,6 +94,7 @@ namespace ecological_alert
                 }
             }
 
+            // 开始相邻作差
             for (int i = 1; i < rasterLayers.Count; i++)
             {
                 try
@@ -97,21 +102,19 @@ namespace ecological_alert
                     IRaster raster1 = rasterLayers[i - 1].Raster;
                     IRaster raster2 = rasterLayers[i].Raster;
 
-                    // 或者方法2: 使用正确的 MapAlgebra 语法
-                    
+                    // 构造表达式并执行作差
                     IMapAlgebraOp algebra = new RasterMapAlgebraOpClass();
                     algebra.BindRaster((IGeoDataset)raster1, "r1");
                     algebra.BindRaster((IGeoDataset)raster2, "r2");
                     IRaster result = (IRaster)algebra.Execute("[r1] - [r2]");
-                    
 
                     string name1 = rasterLayers[i - 1].Name;
                     string name2 = rasterLayers[i].Name;
                     string outputFile = Path.Combine(outputFolder, $"{name1}-{name2}.tif");
 
-                    SaveRaster((IRaster)result, outputFile);
+                    SaveRaster(result, outputFile);
 
-                    // 添加结果到地图
+                    // 添加结果图层到地图中
                     IRasterLayer outputLayer = new RasterLayer();
                     outputLayer.CreateFromFilePath(outputFile);
                     _mapControl.Map.AddLayer(outputLayer);
@@ -124,8 +127,9 @@ namespace ecological_alert
             }
 
             _mapControl.Refresh();
-            MessageBox.Show("作差完成！");
+            MessageBox.Show("相邻作差完成！");
         }
+
 
         private void SaveRaster(IRaster raster, string outputFullPath)
         {

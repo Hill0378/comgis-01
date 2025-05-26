@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Controls;
-using ESRI.ArcGIS.DataSourcesRaster;
 using ESRI.ArcGIS.Geodatabase;
 
 namespace ecological_alert

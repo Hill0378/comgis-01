@@ -1,42 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MakeACustomTimeControl2008;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Controls;
 using ESRI.ArcGIS.DataSourcesFile;
-using ESRI.ArcGIS.Display;
-using ESRI.ArcGIS.Geometry;
-using ESRI.ArcGIS.Output;
-using ESRI.ArcGIS.SystemUI;
-using ESRI.ArcGIS.DataSourcesRaster;
-using ESRI.ArcGIS.esriSystem;
-using ESRI.ArcGIS.Geometry;
-using System.Collections.Generic;
-using ESRI.ArcGIS.SpatialAnalyst;
-using System.Runtime.InteropServices;
-using ESRI.ArcGIS.DataSourcesRaster;
-using ESRI.ArcGIS.GeoAnalyst;
-using ESRI.ArcGIS.Controls;
-using ESRI.ArcGIS.Geoprocessing;
-using System.IO;
-using System.Text;
-using ESRI.ArcGIS.esriSystem;
-using ESRI.ArcGIS.Geoprocessor;
 
 
 namespace ecological_alert
 {
     public partial class Mainform : Form
     {
-
-
         public static Mainform pMainWin = null;
         private readonly ShpTimeAnimationController _shpAnimator;
 
@@ -52,12 +25,6 @@ namespace ecological_alert
         {
             get { return axMapControl1; }
         }       
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            axToolbarControl1.SetBuddyControl(axMapControl1);
-            axTOCControl1.SetBuddyControl(axMapControl1);
-        }      
 
         private void create_view_Click(object sender, EventArgs e)
         {
@@ -106,24 +73,19 @@ namespace ecological_alert
 
         private void 栅格动画ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // 栅格动画展示
             RasterBandAnimation.ShowRasterAnimation(axMapControl1);
-
         }
      
         private void 按掩膜提取ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
             mask form = new mask(axMapControl1);
             form.ShowDialog();
         }
 
         private void 镶嵌ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             MosaicDialog form = new MosaicDialog(axMapControl1);
             form.ShowDialog();
-
         }
 
         private void 缓冲区分析ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -142,21 +104,18 @@ namespace ecological_alert
         {
             RasterSubtractForm form = new RasterSubtractForm(this.axMapControl1);
             form.ShowDialog();
-
         }
 
         private void slope计算ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SlopeForm form = new SlopeForm(axMapControl1); // 注意替换为你的 MapControl 控件名
+            SlopeForm form = new SlopeForm(axMapControl1);
             form.ShowDialog();
-
         }
 
 
         private void 重分类ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             negation form = new negation(axMapControl1);
-
             form.ShowDialog();
         }
 

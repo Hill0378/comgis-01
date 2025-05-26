@@ -79,16 +79,52 @@ namespace ecological_alert
         }
 
         // 保存并显示结果栅格
+        //private void SaveAndDisplayResult(IGeoDataset geoDataset, string layerName)
+        //{
+        //    IRasterLayer rasterLayer = new RasterLayer();
+        //    rasterLayer.CreateFromRaster((IRaster)geoDataset);
+        //    rasterLayer.Name = layerName;
+
+        //    // 添加到地图控件
+        //    _mapControl.AddLayer(rasterLayer, 0);
+        //    _mapControl.Refresh();
+        //}
+        // 保存并显示结果栅格
         private void SaveAndDisplayResult(IGeoDataset geoDataset, string layerName)
         {
-            IRasterLayer rasterLayer = new RasterLayer();
-            rasterLayer.CreateFromRaster((IRaster)geoDataset);
-            rasterLayer.Name = layerName;
+            try
+            {
+                // 设置输出路径
+                string outputFolder = System.IO.Path.Combine(Application.StartupPath, "outputs");
+                if (!System.IO.Directory.Exists(outputFolder))
+                    System.IO.Directory.CreateDirectory(outputFolder);
 
-            // 添加到地图控件
-            _mapControl.AddLayer(rasterLayer, 0);
-            _mapControl.Refresh();
+                string outputPath = System.IO.Path.Combine(outputFolder, layerName + ".tif");
+
+                // 创建工作空间
+                IWorkspaceFactory workspaceFactory = new RasterWorkspaceFactory();
+                string folder = System.IO.Path.GetDirectoryName(outputPath);
+                string name = System.IO.Path.GetFileName(outputPath);
+
+                // 强制转换为 IRasterDataset
+                IRasterDataset rasterDataset = (IRasterDataset)((ISaveAs)geoDataset).SaveAs(name, workspaceFactory.OpenFromFile(folder, 0), "TIFF");
+
+                // 从保存的栅格创建图层
+                IRasterLayer rasterLayer = new RasterLayerClass();
+                rasterLayer.CreateFromDataset(rasterDataset);
+                rasterLayer.Name = layerName;
+
+                // 添加到地图控件
+                _mapControl.AddLayer(rasterLayer, 0);
+                _mapControl.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"保存输出栅格失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
 
         private void btnOK_Click(object sender, EventArgs e)
         {
