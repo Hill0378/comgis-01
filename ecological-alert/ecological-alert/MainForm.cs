@@ -113,7 +113,7 @@ namespace ecological_alert
         }
 
 
-        private void 重分类ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 交集取反ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             negation form = new negation(axMapControl1);
             form.ShowDialog();

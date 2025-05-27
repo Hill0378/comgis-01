@@ -49,7 +49,7 @@ namespace ecological_alert
                 ILayer layer = _mapControl.Map.get_Layer(i);
                 if (layer is IRasterLayer)
                 {
-                    clbRasterLayers.Items.Add(layer.Name, true);
+                    clbRasterLayers.Items.Add(layer.Name, false);
                 }
             }
         }
@@ -74,10 +74,10 @@ namespace ecological_alert
                 if (gp.MessageCount > 0)
                 {
                     StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < gp.MessageCount; i++)
+                    for (int i = 0; i < gp.MessageCount; i++)
                     {
                         sb.AppendLine(gp.GetMessage(i)); // 显式传递索引参数
-                     }
+                    }
                     string messages = sb.ToString();
                     MessageBox.Show(messages.Contains("ERROR") ?
                         $"错误:\n{messages}" : "镶嵌成功！",
@@ -96,7 +96,7 @@ namespace ecological_alert
             {
                 if (File.Exists(layerPath))
                 {
-                    IRasterLayer rasterLayer = new RasterLayer();
+                    IRasterLayer rasterLayer = new RasterLayerClass();
                     rasterLayer.CreateFromFilePath(layerPath);
                     _mapControl.AddLayer(rasterLayer);
                     _mapControl.Refresh();
@@ -150,20 +150,30 @@ namespace ecological_alert
 
             foreach (string name in clbRasterLayers.CheckedItems)
             {
-                for (int i = 0; i < map.LayerCount; i++)
+                IRasterLayer rasterLayer = FindRasterLayer(name);
+                if (rasterLayer != null)
                 {
-                    if (map.get_Layer(i).Name == name && map.get_Layer(i) is IRasterLayer rasterLayer)
+                    // 直接获取文件路径（适用于文件型栅格）
+                    string rasterPath = rasterLayer.FilePath;
+
+                    // 如果FilePath为空，尝试从RasterDataset获取
+                    if (string.IsNullOrEmpty(rasterPath))
                     {
-                        IDataset dataset = rasterLayer as IDataset;
-                        if (dataset != null)
-                        {
-                            string rasterPath = dataset.Workspace.PathName + Path.DirectorySeparatorChar + dataset.Name;
-                            Console.WriteLine($"栅格数据路径: {rasterPath}"); // 添加调试输出
-                            inputPaths.Add(rasterPath);
-                        }
+                        IRasterDataset rasterDataset = (rasterLayer.Raster as IRasterDataset);
+                        if (rasterDataset != null)
+                            rasterPath = rasterDataset.CompleteName;
                     }
+
+                    if (!string.IsNullOrEmpty(rasterPath))
+                    {
+                        Console.WriteLine($"栅格路径: {rasterPath}");
+                        inputPaths.Add(rasterPath);
+                    }
+                    else
+                        MessageBox.Show($"无法获取图层'{name}'的路径");
                 }
             }
+
             string outputDir = Path.GetDirectoryName(OutputPath);
             string outputFileName = Path.GetFileName(OutputPath);
             Console.WriteLine($"输出目录: {outputDir}, 输出文件名: {outputFileName}"); // 添加调试输出
@@ -173,7 +183,7 @@ namespace ecological_alert
             OutputPath = outputTextBox.Text;
             ExecuteMosaic(inputPaths, OutputPath, MosaicMethod);
 
-           
+
         }
 
         private IRasterLayer FindRasterLayer(string layerName)

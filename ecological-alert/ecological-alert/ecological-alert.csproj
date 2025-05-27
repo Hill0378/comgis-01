@@ -52,7 +52,7 @@
       <HintPath>D:\ArcGIS10.8\DeveloperKit10.8\DotNet\Toolboxes\ESRI.ArcGIS.DataManagementTools.dll</HintPath>
     </Reference>
     <Reference Include="ESRI.ArcGIS.DataSourcesRaster, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Display, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -261,15 +261,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="esriDataSourcesRaster">
-      <Guid>{8F0541A3-D5BE-4B3F-A8D9-062D5579E19B}</Guid>
-      <VersionMajor>10</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="esriDisplay">
       <Guid>{59FCCD31-434C-4017-BDEF-DB4B7EDC9CE0}</Guid>
       <VersionMajor>10</VersionMajor>
@@ -286,7 +277,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="esriGeoDatabaseDistributed">
       <Guid>{A7C74158-1062-4664-B404-8694D490FCD1}</Guid>
