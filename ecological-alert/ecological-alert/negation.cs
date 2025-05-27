@@ -32,7 +32,7 @@ namespace ecological_alert
                 if (layer is IFeatureLayer featureLayer &&
                     featureLayer.FeatureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
                 {
-                    clbVectorLayers1.Items.Add(layer.Name,false);
+                    clbVectorLayers1.Items.Add(layer.Name, false);
                 }
             }
         }
@@ -47,7 +47,8 @@ namespace ecological_alert
                 if (layer is IFeatureLayer featureLayer &&
                     featureLayer.FeatureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
                 {
-                    clbVectorLayers2.Items.Add(layer.Name, false);
+                    clbVectorLayers2.Items.Add(layer.Name, false
+                        );
                 }
             }
         }
@@ -90,49 +91,63 @@ namespace ecological_alert
         {
             IGeometryCollection resultCollection = new GeometryBagClass();
             IFeatureCursor cursor1 = null;
+
             try
             {
                 cursor1 = layer1.FeatureClass.Search(null, true);
                 IFeature feature1;
+
                 while ((feature1 = cursor1.NextFeature()) != null)
                 {
                     var polygon1 = feature1.Shape as IPolygon;
-                    if (polygon1 == null) continue;
+                    if (polygon1 == null || polygon1.IsEmpty) continue;
 
                     IFeatureCursor cursor2 = null;
                     try
                     {
                         cursor2 = layer2.FeatureClass.Search(null, true);
                         IFeature feature2;
+
                         while ((feature2 = cursor2.NextFeature()) != null)
                         {
                             var polygon2 = feature2.Shape as IPolygon;
-                            if (polygon2 == null) continue;
+                            if (polygon2 == null || polygon2.IsEmpty) continue;
 
-                            // 转换为拓扑操作接口
+                            // 确保几何体有效
                             ITopologicalOperator topoOp = polygon1 as ITopologicalOperator;
-                            topoOp?.Simplify();
+                            if (topoOp != null)
+                            {
+                                topoOp.Simplify();
 
-
-
-                            // 执行差异操作
-                            var difference = topoOp?.Difference(polygon2);
-                            if (difference != null && !difference.IsEmpty)
-                                resultCollection.AddGeometry(difference);
+                                var difference = topoOp.Difference(polygon2);
+                                if (difference != null && !difference.IsEmpty)
+                                {
+                                    resultCollection.AddGeometry(difference);
+                                }
+                            }
                         }
+                    }
+                    catch (COMException comEx)
+                    {
+                        MessageBox.Show($"处理图层时出现 COM 错误: {comEx.Message}");
                     }
                     finally
                     {
                         if (cursor2 != null)
-                            System.Runtime.InteropServices.Marshal.ReleaseComObject(cursor2);
+                            Marshal.ReleaseComObject(cursor2);
                     }
                 }
+            }
+            catch (COMException comEx)
+            {
+                MessageBox.Show($"处理图层时出现 COM 错误: {comEx.Message}");
             }
             finally
             {
                 if (cursor1 != null)
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(cursor1);
+                    Marshal.ReleaseComObject(cursor1);
             }
+
             return resultCollection;
         }
 
