@@ -59,15 +59,18 @@ namespace ecological_alert
             try
             {
                 Geoprocessor gp = new Geoprocessor { OverwriteOutput = true };
-                MosaicToNewRaster mosaicTool = new MosaicToNewRaster
-                {
-                    input_rasters = string.Join(";", inputRasters),
-                    output_location = Path.GetDirectoryName(outputPath),
-                    raster_dataset_name_with_extension = Path.GetFileName(outputPath),
-                    pixel_type = "32_BIT_FLOAT",
-                    number_of_bands = 1,
-                    mosaic_method = mosaicMethod
-                };
+                MosaicToNewRaster mosaicTool = new MosaicToNewRaster();
+                gp.SetEnvironmentValue("NoData", "-9999");
+
+
+                // 参数配置
+                mosaicTool.input_rasters = string.Join(";", inputRasters);
+                mosaicTool.output_location = Path.GetDirectoryName(outputPath);
+                mosaicTool.raster_dataset_name_with_extension = Path.GetFileName(outputPath);
+                mosaicTool.pixel_type = "32_BIT_FLOAT";
+                mosaicTool.number_of_bands = 1;
+                mosaicTool.mosaic_method = mosaicMethod;
+
 
                 gp.Execute(mosaicTool, null);
 
@@ -89,6 +92,8 @@ namespace ecological_alert
                 MessageBox.Show($"执行出错: {ex.Message}", "错误");
             }
         }
+
+
 
         public void AddResultLayerToMap(string layerPath)
         {
@@ -182,8 +187,9 @@ namespace ecological_alert
             MosaicMethod = cboMethod.SelectedItem.ToString().Split(' ')[0];
             OutputPath = outputTextBox.Text;
             ExecuteMosaic(inputPaths, OutputPath, MosaicMethod);
-
-
+            AddResultLayerToMap(OutputPath);
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private IRasterLayer FindRasterLayer(string layerName)
